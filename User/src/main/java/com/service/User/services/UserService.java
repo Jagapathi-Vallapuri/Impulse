@@ -8,7 +8,10 @@ import java.util.List;
 
 public interface UserService {
     UserResponseDto getUserById(UUID userId);
+
     UserResponseDto updateProfile(UUID userId, UpdateProfileRequest req);
+
     void deleteUser(UUID userId);
+
     List<UserResponseDto> searchUsers(String query);
 }

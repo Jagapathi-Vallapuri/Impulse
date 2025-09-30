@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name="user_profiles")
+@Table(name = "user_profiles")
 @Getter
 @Setter
 @NoArgsConstructor

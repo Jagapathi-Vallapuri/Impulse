@@ -6,6 +6,8 @@ import java.util.UUID;
 
 public interface UserEventPublisher {
     void publishUserCreated(UserCreatedEvent event);
+
     void publishUserUpdated(UserProfile profile);
+
     void publishUserDeleted(UUID userId);
 }

@@ -1,6 +1,5 @@
 package com.service.User.entities;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

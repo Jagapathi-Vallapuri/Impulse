@@ -15,24 +15,23 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private final AuthService authService;
 
-
     @PostMapping("/register")
-    public ResponseEntity<UserResponseDto> register(@RequestBody RegisterRequest req){
+    public ResponseEntity<UserResponseDto> register(@RequestBody RegisterRequest req) {
         return ResponseEntity.ok(authService.register(req));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest req){
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest req) {
         return ResponseEntity.ok(authService.login(req));
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<AuthResponse> refresh(@RequestBody RefreshTokenRequest req){
+    public ResponseEntity<AuthResponse> refresh(@RequestBody RefreshTokenRequest req) {
         return ResponseEntity.ok(authService.refreshToken(req));
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(@RequestBody LogoutRequest req){
+    public ResponseEntity<Void> logout(@RequestBody LogoutRequest req) {
         authService.logout(req);
         return ResponseEntity.noContent().build();
     }

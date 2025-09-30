@@ -24,8 +24,6 @@ public class UserEventPublisherImpl implements UserEventPublisher {
         publishEvent(TOPIC_USER_CREATED, event);
     }
 
-
-
     @Override
     public void publishUserUpdated(UserProfile profile) {
         UserUpdatedEvent event = UserUpdatedEvent.builder()
@@ -46,11 +44,10 @@ public class UserEventPublisherImpl implements UserEventPublisher {
     }
 
     private void publishEvent(String topic, Object event) {
-        try{
+        try {
             String msg = objectMapper.writeValueAsString(event);
             kafkaTemplate.send(topic, msg);
-        }
-        catch (JsonProcessingException e){
+        } catch (JsonProcessingException e) {
             throw new RuntimeException("Failed to serialize event", e);
         }
     }
