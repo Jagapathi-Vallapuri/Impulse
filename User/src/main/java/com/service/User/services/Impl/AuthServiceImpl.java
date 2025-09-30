@@ -1,9 +1,6 @@
 package com.service.User.services.Impl;
 
-import com.service.User.dtos.AuthResponse;
-import com.service.User.dtos.LoginRequest;
-import com.service.User.dtos.RegisterRequest;
-import com.service.User.dtos.UserResponseDto;
+import com.service.User.dtos.*;
 import com.service.User.entities.User;
 import com.service.User.entities.UserProfile;
 import com.service.User.entities.UserStatus;
@@ -14,6 +11,8 @@ import com.service.User.services.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -62,8 +61,15 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AuthResponse refreshToken(RefreshTokenRequest req) {
-        return null;
+    public AuthResponse refreshToken(RefreshTokenRequest request) {
+        UUID userId = jwtService.validateRefreshToken(request.getRefreshToken());
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        String accessToken = jwtService.generateAccessToken(user);
+        String refreshToken = jwtService.generateRefreshToken(user);
+
+        return new AuthResponse(accessToken, refreshToken);
     }
 
     @Override
