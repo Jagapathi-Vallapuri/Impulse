@@ -11,5 +11,7 @@ public interface JwtService {
 
     UUID validateRefreshToken(String token);
 
+    UUID validateAccessToken(String token);
+
     void invalidateRefreshToken(String token);
 }

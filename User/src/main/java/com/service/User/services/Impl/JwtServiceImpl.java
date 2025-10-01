@@ -61,4 +61,17 @@ public class JwtServiceImpl implements JwtService {
     public void invalidateRefreshToken(String token) {
         invalidatedTokens.put(token, true);
     }
+
+    @Override
+    public UUID validateAccessToken(String token) {
+        try {
+            Jws<Claims> claims = Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token);
+            return UUID.fromString(claims.getBody().getSubject());
+        } catch (JwtException e) {
+            throw new RuntimeException("Invalid access token");
+        }
+    }
 }

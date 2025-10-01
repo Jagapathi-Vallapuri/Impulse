@@ -13,7 +13,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user_profiles")
+@Table(name = "users")
 @Builder
 public class User {
 
@@ -31,6 +31,7 @@ public class User {
     private String passwordHash;
 
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private UserStatus status = UserStatus.ACTIVE;
 
     @CreationTimestamp
