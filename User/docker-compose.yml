@@ -58,7 +58,6 @@ services:
       DB_USERNAME: user
       DB_PASSWORD: userpass
       KAFKA_BOOTSTRAP_SERVERS: redpanda:29092
-      # Provide a long random secret for signing JWTs. Override via environment in production.
       JWT_SECRET: "change-this-to-a-long-random-secret"
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
     ports:
