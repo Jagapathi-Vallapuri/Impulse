@@ -4,6 +4,7 @@ import com.service.User.entities.User;
 import com.service.User.services.JwtService;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -14,11 +15,21 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class JwtServiceImpl implements JwtService {
-    private final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private final SecretKey key;
     private static final long ACCESS_TOKEN_VALIDITY_MS = 1000L * 60 * 15; // 15 minutes
     private static final long REFRESH_TOKEN_VALIDITY_MS = 1000L * 60 * 60 * 24 * 7; // 7 days
 
     private final ConcurrentHashMap<String, Boolean> invalidatedTokens = new ConcurrentHashMap<>();
+
+    public JwtServiceImpl(@Value("${jwt.secret:}") String jwtSecret) {
+        if (jwtSecret == null || jwtSecret.isBlank()) {
+            this.key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+            System.err.println("WARNING: JWT secret not provided; using ephemeral key. Tokens will not survive restart.");
+        } else {
+            byte[] bytes = jwtSecret.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+            this.key = Keys.hmacShaKeyFor(bytes);
+        }
+    }
 
     @Override
     public String generateAccessToken(User user) {

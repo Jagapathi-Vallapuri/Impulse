@@ -1,5 +1,7 @@
 # User Service (Impulse)
 
+This repository contains the User microservice for the Impulse project.
+
 ## Overview
 
 A Spring Boot-based User service that provides authentication and user profile management. The service implements JWT-based authentication, event publishing for user lifecycle events, and is container-ready for local development using Docker Compose (MySQL + Redpanda).
