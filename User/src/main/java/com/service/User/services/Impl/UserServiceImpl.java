@@ -27,10 +27,10 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public UserResponseDto getUserById(UUID userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        UserProfile profile = profileRepository.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("Profile not found"));
+    User user = userRepository.findById(userId)
+        .orElseThrow(() -> new com.service.User.exceptions.NotFoundException("User not found"));
+    UserProfile profile = profileRepository.findByUserId(userId)
+        .orElseThrow(() -> new com.service.User.exceptions.NotFoundException("Profile not found"));
 
         return mapToDto(user, profile);
     }
@@ -38,8 +38,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserResponseDto updateProfile(UUID userId, UpdateProfileRequest req) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    User user = userRepository.findById(userId)
+        .orElseThrow(() -> new com.service.User.exceptions.NotFoundException("User not found"));
         UserProfile profile = profileRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("Profile not found"));
 

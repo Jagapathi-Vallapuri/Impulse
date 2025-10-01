@@ -42,11 +42,10 @@ public class SecurityConfig {
             .anyRequest().authenticated()
         );
 
-        // JWT filter should run before UsernamePasswordAuthenticationFilter
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
-        http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
-        http.cors().configurationSource(corsConfigurationSource());
+        http.exceptionHandling(ex -> ex.authenticationEntryPoint(authenticationEntryPoint()));
+        http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
         return http.build();
     }
     @Bean

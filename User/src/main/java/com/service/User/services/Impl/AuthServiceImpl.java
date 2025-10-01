@@ -41,10 +41,10 @@ public class AuthServiceImpl implements AuthService {
             throw new IllegalArgumentException("Password is required");
 
         if (userRepository.existsByEmail(req.getEmail()))
-            throw new RuntimeException("Email already registered");
+            throw new com.service.User.exceptions.DuplicateResourceException("Email already registered");
 
         if (userRepository.existsByUsername(req.getUsername()))
-            throw new RuntimeException("Username already taken");
+            throw new com.service.User.exceptions.DuplicateResourceException("Username already taken");
 
         User user = User.builder()
                 .username(req.getUsername())
@@ -73,8 +73,8 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthResponse login(LoginRequest req) {
         Objects.requireNonNull(req, "LoginRequest must not be null");
-        User user = userRepository.findByEmail(req.getEmail())
-                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
+    User user = userRepository.findByEmail(req.getEmail())
+        .orElseThrow(() -> new RuntimeException("Invalid credentials"));
         if (user.getStatus() != UserStatus.ACTIVE)
             throw new RuntimeException("User is not active");
         if (!passwordEncoder.matches(req.getPassword(), user.getPasswordHash()))
@@ -88,9 +88,9 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthResponse refreshToken(RefreshTokenRequest request) {
         Objects.requireNonNull(request, "RefreshTokenRequest must not be null");
-        UUID userId = jwtService.validateRefreshToken(request.getRefreshToken());
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    UUID userId = jwtService.validateRefreshToken(request.getRefreshToken());
+    User user = userRepository.findById(userId)
+        .orElseThrow(() -> new com.service.User.exceptions.NotFoundException("User not found"));
 
         jwtService.invalidateRefreshToken(request.getRefreshToken());
         String accessToken = jwtService.generateAccessToken(user);
