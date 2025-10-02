@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findByUserIdAndIsDeletedFalseOrderByCreatedAtDesc(Long userId);
-    List<Post> findByVisibilityAndIsDeletedFalseOrderByCreatedATDesc(Visibility visibility);
+    List<Post> findByVisibilityAndIsDeletedFalseOrderByCreatedAtDesc(Visibility visibility);
 }

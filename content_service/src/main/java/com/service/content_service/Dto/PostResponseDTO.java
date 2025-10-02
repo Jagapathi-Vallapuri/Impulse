@@ -15,6 +15,7 @@ public class PostResponseDTO {
     private Long id;
     private Long userId;
     private String content;
+    private String visibility;
     private boolean isDeleted;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
