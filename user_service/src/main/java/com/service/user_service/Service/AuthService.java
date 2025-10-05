@@ -8,6 +8,4 @@ public interface AuthService {
     public AuthResponse login(LoginRequest req);
 
     public AuthResponse refreshToken(RefreshTokenRequest req);
-
-    void logout(LogoutRequest req);
 }

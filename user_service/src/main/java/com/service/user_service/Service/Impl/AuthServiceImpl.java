@@ -100,11 +100,6 @@ public class AuthServiceImpl implements AuthService {
         return new AuthResponse(accessToken, refreshToken);
     }
 
-    @Override
-    public void logout(LogoutRequest req) {
-        jwtService.invalidateRefreshToken(req.getRefreshToken());
-    }
-
     private UserResponseDto mapToDto(User user, UserProfile profile) {
         return UserResponseDto.builder()
                 .id(user.getId())
