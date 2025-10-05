@@ -17,8 +17,8 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class JwtServiceImpl implements JwtService {
     private final SecretKey key;
-    private static final long ACCESS_TOKEN_VALIDITY_MS = 1000L * 60 * 15; // 15 minutes
-    private static final long REFRESH_TOKEN_VALIDITY_MS = 1000L * 60 * 60 * 24 * 7; // 7 days
+    private static final long ACCESS_TOKEN_VALIDITY_MS = 1000L * 60 * 15;
+    private static final long REFRESH_TOKEN_VALIDITY_MS = 1000L * 60 * 60 * 24 * 7;
 
     private final ConcurrentHashMap<String, Boolean> invalidatedTokens = new ConcurrentHashMap<>();
 

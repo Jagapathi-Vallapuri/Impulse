@@ -1,4 +1,4 @@
-package com.service.user_service.Entity
+package com.service.user_service.Entity;
 
 public enum UserStatus {
     ACTIVE,

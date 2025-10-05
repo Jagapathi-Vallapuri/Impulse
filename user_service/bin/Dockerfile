@@ -21,7 +21,6 @@ USER spring
 COPY --from=build /workspace/target/*.jar /app/app.jar
 
 EXPOSE 8080
-EXPOSE 9090
 
 ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
 
